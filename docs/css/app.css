@@ -1,0 +1,138 @@
+:root { --sig: #1C56D6; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --sig: #5A91FF; } }
+
+.hint {
+  font-size: var(--fs-small);
+  color: var(--ink-faint);
+  line-height: 1.45;
+  margin: 9px 0 0;
+}
+.hint em { color: var(--ink-soft); font-style: italic; }
+
+.checks label {
+  display: block;
+  font-size: var(--fs-small);
+  color: var(--ink-soft);
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.checks input { accent-color: var(--sig); margin-right: 6px; }
+
+dl.stats { margin: 0; font-size: var(--fs-small); }
+dl.stats div { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid var(--rule-fine); }
+dl.stats dt { color: var(--ink-soft); margin: 0; }
+dl.stats dd { margin: 0; font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; }
+
+/* --- the mined statement ---------------------------------------------- */
+
+.banner {
+  padding: 14px 20px 12px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--plate);
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.banner .statement { font-size: 21px; }
+.banner .statement .q { color: var(--ink-faint); }
+.banner .meta { font-size: var(--fs-small); color: var(--ink-soft); margin-left: auto; }
+.banner .meta b { font-family: "IBM Plex Mono", monospace; color: var(--ink); }
+
+/* --- conjecture list ---------------------------------------------------- */
+
+.rows { padding: 0 0 60px; }
+
+.cj {
+  border-bottom: 1px solid var(--rule-fine);
+  background: color-mix(in srgb, var(--plate) 88%, transparent);
+}
+.cj > .head {
+  display: grid;
+  grid-template-columns: 26px 1fr 96px 88px 104px;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 20px;
+  cursor: pointer;
+}
+.cj > .head:hover { background: var(--sig-wash); }
+.cj[aria-expanded="true"] > .head { background: var(--sig-wash); }
+
+.cj .rank {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: var(--fs-small);
+  color: var(--ink-faint);
+}
+.cj .claim { font: 400 var(--fs-lead)/1.35 "IBM Plex Serif", Georgia, serif; }
+.cj .claim .op { color: var(--ink-faint); padding: 0 4px; }
+
+.cj .metric {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: var(--fs-small);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--ink-soft);
+}
+.cj .metric small { display: block; font-size: 10px; color: var(--ink-faint); font-family: "IBM Plex Sans", sans-serif; }
+
+.verdict {
+  font-size: var(--fs-small);
+  font-weight: 500;
+  text-align: right;
+  font-family: "IBM Plex Sans", sans-serif;
+}
+.verdict.survives { color: var(--ok); }
+.verdict.broken   { color: var(--warn); }
+.verdict.untested { color: var(--ink-faint); }
+
+/* --- expanded detail ---------------------------------------------------- */
+
+.detail {
+  padding: 4px 20px 22px 56px;
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(280px, 380px);
+  gap: 26px;
+}
+.detail h4 {
+  margin: 12px 0 8px;
+  font: 600 var(--fs-micro)/1 "IBM Plex Sans", sans-serif;
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+}
+.detail p { font-size: var(--fs-small); color: var(--ink-soft); margin: 0 0 10px; max-width: 64ch; }
+
+.scatter { background: var(--plate-sunk); border: 1px solid var(--rule); }
+
+.gallery { display: flex; flex-wrap: wrap; gap: 8px; }
+.gcard {
+  border: 1px solid var(--rule);
+  background: var(--plate-sunk);
+  padding: 4px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+.gcard .cap {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  color: var(--ink-faint);
+  padding-top: 2px;
+}
+.gcard.kill { border-color: var(--warn); }
+.gcard.kill .cap { color: var(--warn); }
+
+.killbox {
+  border-left: 2px solid var(--warn);
+  padding: 8px 0 8px 12px;
+  margin: 10px 0;
+}
+.killbox .who { font: 500 var(--fs-base)/1.4 "IBM Plex Serif", Georgia, serif; color: var(--ink); }
+.killbox .why { font-size: var(--fs-small); color: var(--ink-soft); }
+
+@media (max-width: 1080px) {
+  .detail { grid-template-columns: 1fr; padding-left: 20px; }
+}
+@media (max-width: 880px) {
+  .cj > .head { grid-template-columns: 22px 1fr; row-gap: 4px; }
+  .cj .metric, .verdict { grid-column: 2; text-align: left; }
+  .banner .statement { font-size: 18px; }
+}

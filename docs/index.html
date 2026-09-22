@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conjecture Engine</title>
+<meta name="description" content="Mines true-on-every-small-graph bounds between graph invariants, then tries to break them.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='4' cy='4' r='2.4' fill='%231C56D6'/><circle cx='12' cy='7' r='2.4' fill='%231C56D6'/><circle cx='6' cy='12' r='2.4' fill='%231C56D6'/><path d='M4 4 12 7 6 12Z' fill='none' stroke='%231C56D6' stroke-width='1.1'/></svg>">
+<link rel="stylesheet" href="css/plate.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="shell">
+  <header class="masthead">
+    <h1><span class="mark">◈</span> Conjecture Engine</h1>
+    <p class="tagline">Bounds between graph invariants, mined from every graph up to 8 vertices</p>
+    <a href="https://github.com/rostam/graph-conjectures">Source and method</a>
+  </header>
+
+  <aside class="rail">
+    <div class="group">
+      <h2>What to bound</h2>
+      <div class="field">
+        <label for="target">Invariant</label>
+        <select id="target"></select>
+      </div>
+      <div class="field">
+        <label>Direction</label>
+        <div class="seg" id="dir">
+          <button data-v="upper" aria-pressed="true">Upper bound ≤</button>
+          <button data-v="lower" aria-pressed="false">Lower bound ≥</button>
+        </div>
+      </div>
+      <p class="hint" id="shape"></p>
+    </div>
+
+    <div class="group">
+      <h2>Search space</h2>
+      <div class="field checks">
+        <label><input type="checkbox" id="useUnary" checked> One invariant (x, 2x, x², √x, x±k)</label>
+        <label><input type="checkbox" id="useBinary" checked> Two invariants (x+y, x·y, x/y, √xy, …)</label>
+      </div>
+      <div class="field">
+        <label for="limit">Keep at most <b id="limitVal" class="num">25</b> conjectures</label>
+        <input type="range" id="limit" min="5" max="60" value="25" step="5">
+      </div>
+      <button class="primary" id="run">Mine conjectures</button>
+      <div class="bar" id="bar" hidden><i></i></div>
+    </div>
+
+    <div class="group">
+      <h2>Evidence</h2>
+      <dl class="stats" id="sets"></dl>
+      <p class="hint">A bound is kept only if it holds on every graph in the search set <em>and</em> beats
+      everything already kept on at least one of them. That second test is Fajtlowicz's
+      Dalmatian rule; without it the list fills with weaker restatements.</p>
+    </div>
+  </aside>
+
+  <main class="stage plate-grid" id="stage">
+    <div class="empty">
+      <h3>Loading 21,139 graphs…</h3>
+      <p>Every connected graph on 2–8 vertices, exactly; 9,000 sampled graphs on 9–11 vertices
+      held back as a test set; and 27 named graphs chosen because they are famous for breaking things.</p>
+    </div>
+  </main>
+</div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
