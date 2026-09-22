@@ -3,7 +3,7 @@ import json, os
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 DATA = os.path.join(ROOT, "data")
-SITE = os.path.join(ROOT, "site", "data")
+SITE = os.path.join(ROOT, "docs", "data")
 os.makedirs(SITE, exist_ok=True)
 
 

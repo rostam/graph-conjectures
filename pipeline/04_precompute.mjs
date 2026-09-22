@@ -3,10 +3,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildPool, mine, exprLabel, verify } from '../site/js/mine.js';
+import { buildPool, mine, exprLabel, verify } from '../docs/js/mine.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const SITE = path.join(here, '..', 'site', 'data');
+const SITE = path.join(here, '..', 'docs', 'data');
+// The export is a reproducible artifact, not something the page fetches — the
+// page mines live in about 300 ms. Writing it into docs/ would ship 135 KB that
+// nothing downloads, so it goes to the pipeline's own output directory.
+const OUT = path.join(here, '..', 'data');
 
 const corpus = JSON.parse(fs.readFileSync(path.join(SITE, 'corpus.json')));
 const holdout = JSON.parse(fs.readFileSync(path.join(SITE, 'holdout.json')));
@@ -46,8 +50,9 @@ for (const dir of [true, false]) {
   }
 }
 
-fs.writeFileSync(path.join(SITE, 'conjectures.json'), JSON.stringify(out));
-const size = fs.statSync(path.join(SITE, 'conjectures.json')).size;
+fs.mkdirSync(OUT, { recursive: true });
+fs.writeFileSync(path.join(OUT, 'conjectures.json'), JSON.stringify(out));
+const size = fs.statSync(path.join(OUT, 'conjectures.json')).size;
 console.log(`precomputed ${Object.keys(out).length} target/direction pairs in ${((Date.now()-t0)/1000).toFixed(1)}s -> ${(size/1e6).toFixed(2)} MB`);
 
 // sanity: show what it found for the chromatic number

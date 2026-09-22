@@ -12,7 +12,7 @@ import networkx as nx
 import invariants
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-SITE = os.path.join(ROOT, "site", "data")
+SITE = os.path.join(ROOT, "docs", "data")
 
 
 def kneser(n, k):
